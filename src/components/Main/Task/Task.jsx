@@ -24,8 +24,8 @@ export default function Task({ task, tasks, setTasks, onDeleted, onCompleted, on
           <span className="description">{task.description}</span>
           <span className="created">created {date} ago</span>
         </label>
-        <button className="icon icon-edit" onClick={onEdit} />
-        <button className="icon icon-destroy" onClick={onDeleted} />
+        <button type='button' className="icon icon-edit" onClick={onEdit} />
+        <button type='button' className="icon icon-destroy" onClick={onDeleted} />
       </div>
       <EditTask task={task} tasks={tasks} setTasks={setTasks} />
     </li>

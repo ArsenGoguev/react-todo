@@ -51,8 +51,7 @@ export default function TaskList({ tasks, setTasks, activeShowButton }) {
     setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
   }
 
-  const todos = showedTasks.map((todo) => {
-    return (
+  const todos = showedTasks.map((todo) => (
       <Task
         key={todo.id}
         id={todo.id}
@@ -63,8 +62,7 @@ export default function TaskList({ tasks, setTasks, activeShowButton }) {
         tasks={tasks}
         setTasks={setTasks}
       />
-    )
-  })
+    ))
 
   return (
     <section className="main">

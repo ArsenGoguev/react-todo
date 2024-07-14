@@ -15,7 +15,7 @@ export default function Footer({ activeCount, tasks, setTasks, setActiveShowButt
     <footer className="footer">
       <span className="todo-count">{activeCount} items left</span>
       <TasksFilter setActiveShowButton={setActiveShowButton} />
-      <button className="clear-completed" onClick={onClear}>
+      <button type='button' className="clear-completed" onClick={onClear}>
         Clear completed
       </button>
     </footer>

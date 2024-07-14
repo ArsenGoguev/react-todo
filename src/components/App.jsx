@@ -9,7 +9,7 @@ import './app.css'
 export default function App() {
   const [tasks, setTasks] = useState([])
   const [activeShowButton, setActiveShowButton] = useState('All')
-  let activeCount = tasks.filter((el) => el.taskStatus === '').length
+  const activeCount = tasks.filter((el) => el.taskStatus === '').length
 
   return (
     <section className="todoapp">

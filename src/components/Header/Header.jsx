@@ -10,7 +10,7 @@ export default function Header({ tasks, setTasks }) {
     <header className="header">
       <h1>Todos</h1>
       <NewTaskForm tasks={tasks} setTasks={setTasks} />
-      <div className="toggle-all"></div>
+      <div className="toggle-all" />
     </header>
   )
 }
