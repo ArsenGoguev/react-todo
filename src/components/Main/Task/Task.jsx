@@ -21,7 +21,12 @@ export default function Task({ task, tasks, setTasks, onDeleted, onCompleted, on
       <div className="view">
         <input className="toggle" type="checkbox" onClick={onCompleted} defaultChecked={task.checked} />
         <label>
-          <span className="description">{task.description}</span>
+        <span className="title">fw</span>z
+        <span className="description">
+          <button type="button" className="icon icon-play" />
+          <button type="button" className="icon icon-pause" />
+                  12:25
+        </span>
           <span className="created">created {date} ago</span>
         </label>
         <button type='button' className="icon icon-edit" onClick={onEdit} />

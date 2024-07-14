@@ -8,7 +8,7 @@ import './header.css'
 export default function Header({ tasks, setTasks }) {
   return (
     <header className="header">
-      <h1>Todos</h1>
+      <h1>todos</h1>
       <NewTaskForm tasks={tasks} setTasks={setTasks} />
       <div className="toggle-all" />
     </header>

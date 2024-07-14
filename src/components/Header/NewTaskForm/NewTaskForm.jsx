@@ -31,8 +31,10 @@ export default function NewTaskForm({ tasks, setTasks }) {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <input className="new-todo" placeholder="What needs to be done?" onChange={onChange} value={taskName} autoFocus />
+    <form className="new-todo-form" onSubmit={onSubmit}>
+      <input className="new-todo" placeholder="Task" onChange={onChange} value={taskName} autoFocus />
+      <input className="new-todo-form__timer" placeholder="Min" autoFocus />
+      <input className="new-todo-form__timer" placeholder="Sec" autoFocus />
     </form>
   )
 }
