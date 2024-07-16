@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, {
+  useContext, useEffect, useState, useCallback,
+} from 'react'
 import PropTypes from 'prop-types'
 
 import './taskTimer.css'
@@ -22,25 +24,25 @@ export default function TaskTimer({ time, taskID }) {
     return () => clearInterval(timer) // eslint-disable-line consistent-return
   }, [timerState, minutes, seconds]) // eslint-disable-line
 
-  function decrementSeconds() {
+  const decrementMinutes = useCallback(() => {
+    setSeconds(59)
+    setMinutes((prevMinutes) => prevMinutes - 1)
+  }, [])
+
+  const decrementSeconds = useCallback(() => {
     if (seconds > 0) {
-      setSeconds(seconds - 1)
+      setSeconds((prevSeconds) => prevSeconds - 1)
     } else {
       decrementMinutes()
     }
-  }
+  }, [seconds, decrementMinutes])
 
-  function decrementMinutes() {
-    setSeconds(59)
-    setMinutes(minutes - 1)
-  }
-
-  function saveTime(id, min, sec) {
+  const saveTime = useCallback((id, min, sec) => {
     const idx = tasks.findIndex((el) => el.id === id)
     const item = tasks[idx]
     item.time = Number(min) * 60 + Number(sec)
     setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
-  }
+  }, [tasks, setTasks])
 
   return (
     <span className="description timer">

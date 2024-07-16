@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 
 import TaskList from './Main/TaskList/TaskList.jsx'
 import Footer from './Footer/Footer.jsx'
@@ -9,15 +9,15 @@ import './app.css'
 export default function App() {
   const [tasks, setTasks] = useState([])
   const [activeShowButton, setActiveShowButton] = useState('All')
-  const activeCount = tasks.filter((el) => el.taskStatus === '').length
+  const activeCount = useMemo(() => tasks.filter((el) => el.taskStatus === '').length, [tasks])
 
-  const contextValue = {
+  const contextValue = useMemo(() => ({
     tasks,
     activeShowButton,
     setTasks,
     setActiveShowButton,
     activeCount,
-  }
+  }), [tasks, activeShowButton, activeCount])
 
   return (
     <TodoAppContext.Provider value={contextValue}>

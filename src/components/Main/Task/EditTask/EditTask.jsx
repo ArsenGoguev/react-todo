@@ -7,7 +7,7 @@ export default function EditTask() {
   const { task, tasks, setTasks } = useContext(TodoListContext)
   const [description, setDescription] = useState(task.description)
 
-  function onSubmitDescription(event) {
+  const onSubmitDescription = (event) => {
     event.preventDefault()
     const idx = tasks.findIndex((el) => el.id === task.id)
     const item = tasks[idx]
@@ -23,7 +23,7 @@ export default function EditTask() {
     setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
   }
 
-  function onChangeDescription(event) {
+  const onChangeDescription = (event) => {
     setDescription(event.target.value)
   }
 

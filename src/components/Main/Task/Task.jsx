@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, {
+  useEffect, useState, useMemo, useCallback,
+} from 'react'
 import { formatDistanceToNowStrict } from 'date-fns'
 import PropTypes from 'prop-types'
 
@@ -21,43 +23,35 @@ export default function Task({
       setDate(() => formatDistanceToNowStrict(task.date, { includeSeconds: true }))
     }, 1000)
     return () => clearInterval(interval)
-  })
+  }, [task.date])
 
-  function handleCheckbox() {
+  const toggleTaskStatus = useCallback((func) => {
     setTimerState(false)
-    onCompleted()
-  }
+    func()
+  }, [])
 
-  function handleDeleteButton() {
-    setTimerState(false)
-    onDeleted()
-  }
-
-  const taskContextValue = {
+  const taskContextValue = useMemo(() => ({
     task,
     tasks,
     setTasks,
     timerState,
     setTimerState,
-  }
+  }), [task, tasks, setTasks, timerState])
 
   return (
     <TodoListContext.Provider value={taskContextValue}>
       <li className={task.taskStatus}>
         <div className="view">
-          <input className="toggle" type="checkbox" onClick={handleCheckbox} defaultChecked={task.checked} />
+          <input className="toggle" type="checkbox" onClick={() => toggleTaskStatus(onCompleted)} defaultChecked={task.checked} />
           <label>
             <span className="title">{task.description}</span>
             <TaskTimer time={task.time} taskID={task.id} />
             <span className="description">
-              created
-              {date}
-              {' '}
-              ago
+              {`created ${date} ago`}
             </span>
           </label>
           <button type="button" className="icon icon-edit" onClick={onEdit} />
-          <button type="button" className="icon icon-destroy" onClick={handleDeleteButton} />
+          <button type="button" className="icon icon-destroy" onClick={() => toggleTaskStatus(onDeleted)} />
         </div>
         <EditTask />
       </li>

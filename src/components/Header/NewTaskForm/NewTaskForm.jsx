@@ -9,16 +9,8 @@ export default function NewTaskForm() {
   const [minValue, setMinValue] = useState('')
   const [secValue, setSecValue] = useState('')
 
-  function onChangeName(e) {
-    setTaskName(e.target.value)
-  }
-
-  function onChangeMin(e) {
-    setMinValue(e.target.value)
-  }
-
-  function onChangeSec(e) {
-    setSecValue(e.target.value)
+  const onChange = (func, value) => {
+    func(value)
   }
 
   function onSubmit(event) {
@@ -44,12 +36,18 @@ export default function NewTaskForm() {
 
   return (
     <form className="new-todo-form" onSubmit={onSubmit}>
-      <input className="new-todo" placeholder="Task" onChange={onChangeName} value={taskName} autoFocus />
+      <input
+        className="new-todo"
+        placeholder="Task"
+        onChange={(e) => onChange(setTaskName, e.target.value)}
+        value={taskName}
+        autoFocus
+      />
       <input
         className="new-todo-form__timer"
         min={0}
         max={999}
-        onChange={onChangeMin}
+        onChange={(e) => onChange(setMinValue, e.target.value)}
         value={minValue}
         placeholder="Min"
         type="number"
@@ -58,7 +56,7 @@ export default function NewTaskForm() {
         className="new-todo-form__timer"
         min={1}
         max={60}
-        onChange={onChangeSec}
+        onChange={(e) => onChange(setSecValue, e.target.value)}
         value={secValue}
         placeholder="Sec"
         type="number"

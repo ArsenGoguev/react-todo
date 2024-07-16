@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, {
+  useState, useEffect, useContext, useMemo, useCallback,
+} from 'react'
 
 import './taskList.css'
 import Task from '../Task/Task.jsx'
@@ -20,14 +22,14 @@ export default function TaskList() {
     }
   }, [tasks, activeShowButton])
 
-  function onDeleted(id) {
+  const onDeleted = useCallback((id) => {
     const idx = tasks.findIndex((el) => el.id === id)
     const result = tasks.toSpliced(idx, 1)
 
     setTasks(result)
-  }
+  }, [tasks, setTasks])
 
-  function onCompleted(id) {
+  const onCompleted = useCallback((id) => {
     const idx = tasks.findIndex((el) => el.id === id)
     const item = tasks[idx]
 
@@ -40,18 +42,18 @@ export default function TaskList() {
     }
 
     setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
-  }
+  }, [tasks, setTasks])
 
-  function onEdit(id) {
+  const onEdit = useCallback((id) => {
     const idx = tasks.findIndex((el) => el.id === id)
     const item = tasks[idx]
 
     item.taskStatus += ' editing'
 
     setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
-  }
+  }, [tasks, setTasks])
 
-  const todos = showedTasks.map((todo) => (
+  const todos = useMemo(() => showedTasks.map((todo) => (
     <Task
       key={todo.id}
       id={todo.id}
@@ -62,7 +64,7 @@ export default function TaskList() {
       tasks={tasks}
       setTasks={setTasks}
     />
-  ))
+  )), [showedTasks, onDeleted, onCompleted, onEdit, tasks, setTasks])
 
   return (
     <section className="main">
