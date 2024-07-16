@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import './editTask.css'
+import { TodoListContext } from '../../../Context/TodoContext.js'
 
-export default function EditTask({ task, tasks, setTasks }) {
+export default function EditTask() {
+  const { task, tasks, setTasks } = useContext(TodoListContext)
   const [description, setDescription] = useState(task.description)
 
   function onSubmitDescription(event) {
     event.preventDefault()
-
     const idx = tasks.findIndex((el) => el.id === task.id)
     const item = tasks[idx]
 
@@ -18,9 +18,8 @@ export default function EditTask({ task, tasks, setTasks }) {
       item.description = task.description
       setDescription(task.description)
     }
-
+    
     item.taskStatus = item.taskStatus.replace(' editing', '')
-
     setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
   }
 
@@ -33,15 +32,4 @@ export default function EditTask({ task, tasks, setTasks }) {
       <input className="edit" value={description} onChange={onChangeDescription} autoFocus />
     </form>
   )
-}
-
-EditTask.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setTasks: PropTypes.func.isRequired,
-  task: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    taskStatus: PropTypes.string.isRequired,
-    date: PropTypes.instanceOf(Date).isRequired,
-  }).isRequired,
 }

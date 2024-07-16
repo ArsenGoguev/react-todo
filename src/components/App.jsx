@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import TaskList from './Main/TaskList/TaskList.jsx'
 import Footer from './Footer/Footer.jsx'
 import Header from './Header/Header.jsx'
-
+import { TodoAppContext } from './Context/TodoContext.js'
 import './app.css'
 
 export default function App() {
@@ -11,11 +11,15 @@ export default function App() {
   const [activeShowButton, setActiveShowButton] = useState('All')
   const activeCount = tasks.filter((el) => el.taskStatus === '').length
 
+  const contextValue = { tasks, activeShowButton, setTasks, setActiveShowButton, activeCount }
+
   return (
-    <section className="todoapp">
-      <Header tasks={tasks} setTasks={setTasks} />
-      <TaskList tasks={tasks} setTasks={setTasks} activeShowButton={activeShowButton} />
-      <Footer activeCount={activeCount} tasks={tasks} setTasks={setTasks} setActiveShowButton={setActiveShowButton} />
-    </section>
+    <TodoAppContext.Provider value={contextValue}>
+      <section className="todoapp">
+        <Header />
+        <TaskList />
+        <Footer />
+      </section>
+    </TodoAppContext.Provider>
   )
 }

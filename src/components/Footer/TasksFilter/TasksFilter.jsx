@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext, useState } from 'react'
 
 import './tasksFilter.css'
+import { TodoAppContext } from '../../Context/TodoContext.js'
 
-export default function TasksFilter({ setActiveShowButton }) {
+export default function TasksFilter() {
+  const { setActiveShowButton } = useContext(TodoAppContext)
+
   const [selectedButton, setSelectedButton] = useState({
     all: 'selected',
     active: '',
@@ -56,8 +58,4 @@ export default function TasksFilter({ setActiveShowButton }) {
       </li>
     </ul>
   )
-}
-
-TasksFilter.propTypes = {
-  setActiveShowButton: PropTypes.func.isRequired,
 }

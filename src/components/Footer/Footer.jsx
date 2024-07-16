@@ -1,11 +1,13 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useContext } from 'react'
+import './footer.css'
+
+import { TodoAppContext } from "../Context/TodoContext.js"
 
 import TasksFilter from './TasksFilter/TasksFilter.jsx'
 
-import './footer.css'
+export default function Footer() {
+  const { activeCount, tasks, setTasks } = useContext(TodoAppContext)
 
-export default function Footer({ activeCount, tasks, setTasks, setActiveShowButton }) {
   function onClear() {
     const result = tasks.filter((item) => item.taskStatus !== 'completed')
     setTasks(result)
@@ -14,17 +16,10 @@ export default function Footer({ activeCount, tasks, setTasks, setActiveShowButt
   return (
     <footer className="footer">
       <span className="todo-count">{activeCount} items left</span>
-      <TasksFilter setActiveShowButton={setActiveShowButton} />
+      <TasksFilter />
       <button type='button' className="clear-completed" onClick={onClear}>
         Clear completed
       </button>
     </footer>
   )
-}
-
-Footer.propTypes = {
-  setTasks: PropTypes.func.isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  activeCount: PropTypes.number.isRequired,
-  setActiveShowButton: PropTypes.func.isRequired,
 }

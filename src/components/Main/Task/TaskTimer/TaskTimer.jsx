@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types'
-import './taskTimer.css'
 
-export default function TaskTimer({ time, timerState, setTimerState, setTasks, tasks, taskID }) {
+import './taskTimer.css'
+import { TodoListContext } from "../../../Context/TodoContext.js";
+
+export default function TaskTimer({ time, taskID }) {
+  const { timerState, setTimerState, setTasks, tasks } = useContext(TodoListContext)
   const [minutes, setMinutes] = useState(Number(time / 60).toFixed())
   const [seconds, setSeconds] = useState((time % 60))
 
@@ -33,9 +36,7 @@ export default function TaskTimer({ time, timerState, setTimerState, setTasks, t
   function saveTime(id, min, sec) {
     const idx = tasks.findIndex((el) => el.id === id)
     const item = tasks[idx]
-
     item.time = Number(min) * 60 + Number(sec)
-
     setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
   }
 
@@ -51,8 +52,4 @@ export default function TaskTimer({ time, timerState, setTimerState, setTasks, t
 TaskTimer.propTypes = {
   taskID: PropTypes.number.isRequired,
   time: PropTypes.number.isRequired,
-  timerState: PropTypes.bool.isRequired,
-  setTimerState: PropTypes.func.isRequired,
-  setTasks: PropTypes.func.isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
 }

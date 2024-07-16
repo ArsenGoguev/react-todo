@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types'
-import React, { useState } from 'react'
-
+import React, { useState, useContext } from 'react'
 import './newTaskForm.css'
 
-export default function NewTaskForm({ tasks, setTasks }) {
+import { TodoAppContext } from '../../Context/TodoContext.js'
+
+export default function NewTaskForm() {
+  const { tasks, setTasks } = useContext(TodoAppContext)
   const [taskName, setTaskName] = useState('')
   const [minValue, setMinValue] = useState('')
   const [secValue, setSecValue] = useState('')
@@ -49,9 +50,4 @@ export default function NewTaskForm({ tasks, setTasks }) {
       <button type="submit" />
     </form>
   )
-}
-
-NewTaskForm.propTypes = {
-  setTasks: PropTypes.func.isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
 }

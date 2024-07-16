@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-
-import Task from '../Task/Task.jsx'
+import React, { useState, useEffect, useContext } from 'react'
 
 import './taskList.css'
+import Task from '../Task/Task.jsx'
+import { TodoAppContext } from '../../Context/TodoContext.js'
 
-export default function TaskList({ tasks, setTasks, activeShowButton }) {
+export default function TaskList() {
+  const { tasks, setTasks, activeShowButton } = useContext(TodoAppContext)
   const [showedTasks, setShowedTasks] = useState(tasks)
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export default function TaskList({ tasks, setTasks, activeShowButton }) {
 
     setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
   }
-
+  
   const todos = showedTasks.map((todo) => (
       <Task
         key={todo.id}
@@ -69,10 +69,4 @@ export default function TaskList({ tasks, setTasks, activeShowButton }) {
       <ul className="todo-list">{todos}</ul>
     </section>
   )
-}
-
-TaskList.propTypes = {
-  setTasks: PropTypes.func.isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  activeShowButton: PropTypes.string.isRequired,
 }
