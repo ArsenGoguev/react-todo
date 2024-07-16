@@ -8,9 +8,12 @@ import { TodoListContext } from '../../Context/TodoContext.js'
 import EditTask from './EditTask/EditTask.jsx'
 import TaskTimer from './TaskTimer/TaskTimer.jsx'
 
-
-export default function Task({ task, tasks, setTasks, onDeleted, onCompleted, onEdit }) {
-  const [date, setDate] = useState(() => formatDistanceToNowStrict(task.date, { includeSeconds: true }))
+export default function Task({
+  task, tasks, setTasks, onDeleted, onCompleted, onEdit,
+}) {
+  const [date, setDate] = useState(() => {
+    formatDistanceToNowStrict(task.date, { includeSeconds: true })
+  })
   const [timerState, setTimerState] = useState(false)
 
   useEffect(() => {
@@ -31,7 +34,11 @@ export default function Task({ task, tasks, setTasks, onDeleted, onCompleted, on
   }
 
   const taskContextValue = {
-    task, tasks, setTasks, timerState, setTimerState
+    task,
+    tasks,
+    setTasks,
+    timerState,
+    setTimerState,
   }
 
   return (
@@ -40,12 +47,17 @@ export default function Task({ task, tasks, setTasks, onDeleted, onCompleted, on
         <div className="view">
           <input className="toggle" type="checkbox" onClick={handleCheckbox} defaultChecked={task.checked} />
           <label>
-          <span className="title">{task.description}</span>
-          <TaskTimer time={task.time} taskID={task.id} />
-          <span className="description">created {date} ago</span>
+            <span className="title">{task.description}</span>
+            <TaskTimer time={task.time} taskID={task.id} />
+            <span className="description">
+              created
+              {date}
+              {' '}
+              ago
+            </span>
           </label>
-          <button type='button' className="icon icon-edit" onClick={onEdit} />
-          <button type='button' className="icon icon-destroy" onClick={handleDeleteButton} />
+          <button type="button" className="icon icon-edit" onClick={onEdit} />
+          <button type="button" className="icon icon-destroy" onClick={handleDeleteButton} />
         </div>
         <EditTask />
       </li>

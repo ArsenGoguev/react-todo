@@ -11,7 +11,13 @@ export default function App() {
   const [activeShowButton, setActiveShowButton] = useState('All')
   const activeCount = tasks.filter((el) => el.taskStatus === '').length
 
-  const contextValue = { tasks, activeShowButton, setTasks, setActiveShowButton, activeCount }
+  const contextValue = {
+    tasks,
+    activeShowButton,
+    setTasks,
+    setActiveShowButton,
+    activeCount,
+  }
 
   return (
     <TodoAppContext.Provider value={contextValue}>

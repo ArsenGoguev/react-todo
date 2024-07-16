@@ -7,9 +7,9 @@
 
 .todo-list li .icon-pause,
 .todo-list li .icon-play {
-	font-size: 18px;
-	width: 18px;
-	height: 18px;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
   color: #cc9a9a;
   transition: color 0.2s ease-out;
   cursor: pointer;
@@ -22,13 +22,13 @@
 }
 
 .todo-list li .icon-play {
-	font-size: 15px;
+  font-size: 15px;
 }
 
 .icon-pause:after {
-	content: '⏸';
+  content: '⏸';
 }
 
 .icon-play:after {
-	content: '▶';
+  content: '▶';
 }

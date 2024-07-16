@@ -42,17 +42,17 @@ export default function TasksFilter() {
   return (
     <ul className="filters">
       <li>
-        <button type='button' className={selectedButton.all} onClick={onShowAll}>
+        <button type="button" className={selectedButton.all} onClick={onShowAll}>
           All
         </button>
       </li>
       <li>
-        <button type='button' className={selectedButton.active} onClick={onShowActive}>
+        <button type="button" className={selectedButton.active} onClick={onShowActive}>
           Active
         </button>
       </li>
       <li>
-        <button type='button' className={selectedButton.completed} onClick={onShowCompleted}>
+        <button type="button" className={selectedButton.completed} onClick={onShowCompleted}>
           Completed
         </button>
       </li>

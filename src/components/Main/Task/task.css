@@ -58,7 +58,7 @@
 }
 
 .todo-list li .view {
-	position: relative;
+  position: relative;
 }
 
 .todo-list li label .description {
@@ -101,8 +101,8 @@
 
 .todo-list li .icon-destroy {
   position: absolute;
-	top: 0;
-	bottom: -3px;
+  top: 0;
+  bottom: -3px;
   right: 10px;
 }
 
@@ -112,8 +112,8 @@
 
 .todo-list li .icon-edit {
   position: absolute;
-	top: 0;
-	bottom: -3px;
+  top: 0;
+  bottom: -3px;
   font-size: 19px;
   right: 45px;
 }
@@ -132,4 +132,3 @@
     height: 40px;
   }
 }
-

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import './footer.css'
 
-import { TodoAppContext } from "../Context/TodoContext.js"
+import { TodoAppContext } from '../Context/TodoContext.js'
 
 import TasksFilter from './TasksFilter/TasksFilter.jsx'
 
@@ -15,9 +15,13 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <span className="todo-count">{activeCount} items left</span>
+      <span className="todo-count">
+        {activeCount}
+        {' '}
+        items left
+      </span>
       <TasksFilter />
-      <button type='button' className="clear-completed" onClick={onClear}>
+      <button type="button" className="clear-completed" onClick={onClear}>
         Clear completed
       </button>
     </footer>

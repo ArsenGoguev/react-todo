@@ -1,13 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import './taskTimer.css'
-import { TodoListContext } from "../../../Context/TodoContext.js";
+import { TodoListContext } from '../../../Context/TodoContext.js'
 
 export default function TaskTimer({ time, taskID }) {
-  const { timerState, setTimerState, setTasks, tasks } = useContext(TodoListContext)
+  const {
+    timerState, setTimerState, setTasks, tasks,
+  } = useContext(TodoListContext)
   const [minutes, setMinutes] = useState(Number(time / 60).toFixed())
-  const [seconds, setSeconds] = useState((time % 60))
+  const [seconds, setSeconds] = useState(time % 60)
 
   useEffect(() => {
     if (minutes <= 0 && seconds <= 0) setTimerState(false)
@@ -40,7 +42,7 @@ export default function TaskTimer({ time, taskID }) {
     setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
   }
 
-  return(
+  return (
     <span className="description timer">
       <button type="button" onClick={() => setTimerState(true)} className="icon-play" />
       <button type="button" onClick={() => setTimerState(false)} className="icon-pause" />

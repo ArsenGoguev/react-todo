@@ -50,19 +50,19 @@ export default function TaskList() {
 
     setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
   }
-  
+
   const todos = showedTasks.map((todo) => (
-      <Task
-        key={todo.id}
-        id={todo.id}
-        task={todo}
-        onDeleted={() => onDeleted(todo.id)}
-        onCompleted={() => onCompleted(todo.id)}
-        onEdit={() => onEdit(todo.id)}
-        tasks={tasks}
-        setTasks={setTasks}
-      />
-    ))
+    <Task
+      key={todo.id}
+      id={todo.id}
+      task={todo}
+      onDeleted={() => onDeleted(todo.id)}
+      onCompleted={() => onCompleted(todo.id)}
+      onEdit={() => onEdit(todo.id)}
+      tasks={tasks}
+      setTasks={setTasks}
+    />
+  ))
 
   return (
     <section className="main">

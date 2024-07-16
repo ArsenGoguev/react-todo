@@ -18,7 +18,7 @@ export default function EditTask() {
       item.description = task.description
       setDescription(task.description)
     }
-    
+
     item.taskStatus = item.taskStatus.replace(' editing', '')
     setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
   }

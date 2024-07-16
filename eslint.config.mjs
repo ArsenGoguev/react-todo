@@ -9,6 +9,7 @@ import pluginReact from 'eslint-plugin-react'
 import babelParser from '@babel/eslint-parser'
 import { FlatCompat } from '@eslint/eslintrc'
 import airbnb from 'eslint-config-airbnb'
+import prettier from 'eslint-plugin-prettier'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -18,6 +19,7 @@ const compat = new FlatCompat({
 })
 
 export default [
+  prettierConfig,
   ...compat.config(airbnb),
   {
     files: ['**/*.{js,mjs,cjs,jsx}'],
@@ -41,6 +43,7 @@ export default [
   },
   {
     plugins: {
+      '@prettier': prettier,
       '@import': pluginImport,
       '@react': pluginReact,
     },
@@ -94,5 +97,4 @@ export default [
     },
   },
   pluginJs.configs.recommended,
-  prettierConfig,
 ]
