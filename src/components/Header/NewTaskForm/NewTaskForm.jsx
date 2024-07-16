@@ -45,8 +45,8 @@ export default function NewTaskForm() {
   return (
     <form className="new-todo-form" onSubmit={onSubmit}>
       <input className="new-todo" placeholder="Task" onChange={onChangeName} value={taskName} autoFocus />
-      <input className="new-todo-form__timer" onChange={onChangeMin} value={minValue} placeholder="Min" type='number' />
-      <input className="new-todo-form__timer" onChange={onChangeSec} value={secValue} placeholder="Sec" type='number' />
+      <input className="new-todo-form__timer" min={0} max={999} onChange={onChangeMin} value={minValue} placeholder="Min" type='number' />
+      <input className="new-todo-form__timer" min={1} max={60} onChange={onChangeSec} value={secValue} placeholder="Sec" type='number' />
       <button type="submit" />
     </form>
   )
