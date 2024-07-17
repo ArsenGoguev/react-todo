@@ -9,15 +9,22 @@ import './app.css'
 export default function App() {
   const [tasks, setTasks] = useState([])
   const [activeShowButton, setActiveShowButton] = useState('All')
+  const [timers, setTimers] = useState({})
+
   const activeCount = useMemo(() => tasks.filter((el) => el.taskStatus === '').length, [tasks])
 
-  const contextValue = useMemo(() => ({
-    tasks,
-    activeShowButton,
-    setTasks,
-    setActiveShowButton,
-    activeCount,
-  }), [tasks, activeShowButton, activeCount])
+  const contextValue = useMemo(
+    () => ({
+      tasks,
+      activeShowButton,
+      setTasks,
+      setActiveShowButton,
+      activeCount,
+      timers,
+      setTimers
+    }),
+    [tasks, activeShowButton, activeCount, timers]
+  )
 
   return (
     <TodoAppContext.Provider value={contextValue}>

@@ -15,14 +15,14 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: __dirname
 })
 
 export default [
   prettierConfig,
   ...compat.config(airbnb),
   {
-    files: ['**/*.{js,mjs,cjs,jsx}'],
+    files: ['**/*.{js,mjs,cjs,jsx}']
   },
   {
     languageOptions: {
@@ -34,26 +34,27 @@ export default [
         sourceType: 'module',
         babelOptions: {
           parserOpts: {
-            plugins: ['jsx'],
-          },
-        },
+            plugins: ['jsx']
+          }
+        }
       },
-      globals: globals.browser,
-    },
+      globals: globals.browser
+    }
   },
   {
     plugins: {
       '@prettier': prettier,
       '@import': pluginImport,
-      '@react': pluginReact,
-    },
+      '@react': pluginReact
+    }
   },
   {
-    ignores: ['node_modules', 'build'],
+    ignores: ['node_modules', 'build']
   },
   {
     rules: {
       indent: ['error', 2],
+      'comma-dangle': ['error', 'never'],
       'no-nested-ternary': 0,
       'no-console': 0,
       'no-underscore-dangle': 0,
@@ -78,23 +79,23 @@ export default [
         2,
         {
           groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-          'newlines-between': 'always',
-        },
-      ],
-    },
+          'newlines-between': 'always'
+        }
+      ]
+    }
   },
   {
     settings: {
       '@import/resolver': {
         node: {
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
-          moduleDirectory: ['node_modules', 'src/'],
-        },
+          moduleDirectory: ['node_modules', 'src/']
+        }
       },
       react: {
-        version: 'detect',
-      },
-    },
+        version: 'detect'
+      }
+    }
   },
-  pluginJs.configs.recommended,
+  pluginJs.configs.recommended
 ]

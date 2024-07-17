@@ -1,5 +1,5 @@
 import React, {
-  useContext, useEffect, useState, useCallback,
+  useContext, useEffect, useState, useCallback
 } from 'react'
 import PropTypes from 'prop-types'
 
@@ -8,7 +8,7 @@ import { TodoListContext } from '../../../Context/TodoContext.js'
 
 export default function TaskTimer({ time, taskID }) {
   const {
-    timerState, setTimerState, setTasks, tasks,
+    timerState, setTimerState, setTasks, tasks
   } = useContext(TodoListContext)
   const [minutes, setMinutes] = useState(Number(time / 60).toFixed())
   const [seconds, setSeconds] = useState(time % 60)
@@ -37,12 +37,15 @@ export default function TaskTimer({ time, taskID }) {
     }
   }, [seconds, decrementMinutes])
 
-  const saveTime = useCallback((id, min, sec) => {
-    const idx = tasks.findIndex((el) => el.id === id)
-    const item = tasks[idx]
-    item.time = Number(min) * 60 + Number(sec)
-    setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
-  }, [tasks, setTasks])
+  const saveTime = useCallback(
+    (id, min, sec) => {
+      const idx = tasks.findIndex((el) => el.id === id)
+      const item = tasks[idx]
+      item.time = Number(min) * 60 + Number(sec)
+      setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
+    },
+    [tasks, setTasks]
+  )
 
   return (
     <span className="description timer">
@@ -55,5 +58,5 @@ export default function TaskTimer({ time, taskID }) {
 
 TaskTimer.propTypes = {
   taskID: PropTypes.number.isRequired,
-  time: PropTypes.number.isRequired,
+  time: PropTypes.number.isRequired
 }
