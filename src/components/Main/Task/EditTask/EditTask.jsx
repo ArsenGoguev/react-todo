@@ -3,10 +3,12 @@ import React, {
 } from 'react'
 
 import './editTask.css'
-import { TodoListContext } from '../../../Context/TodoContext.js'
+import { TodoAppContext, TodoListContext } from '../../../Context/TodoContext.js'
 
 export default function EditTask() {
-  const { task, tasks, setTasks } = useContext(TodoListContext)
+  const { tasks, setTasks } = useContext(TodoAppContext)
+  const { task } = useContext(TodoListContext)
+
   const [description, setDescription] = useState(task.description)
   const inputRef = useRef(null)
 

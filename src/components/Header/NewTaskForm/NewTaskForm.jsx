@@ -23,8 +23,7 @@ export default function NewTaskForm() {
         taskStatus: '',
         checked: false,
         date: new Date(),
-        time: Number(minValue) * 60 + Number(secValue),
-        timer: null
+        time: Number(minValue) * 60 + Number(secValue)
       }
       const result = [...tasks, newTask]
       setTasks(result)

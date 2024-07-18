@@ -1,6 +1,4 @@
-import React, {
-  useEffect, useState, useMemo, useCallback
-} from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { formatDistanceToNowStrict } from 'date-fns'
 import PropTypes from 'prop-types'
 
@@ -11,12 +9,12 @@ import EditTask from './EditTask/EditTask.jsx'
 import TaskTimer from './TaskTimer/TaskTimer.jsx'
 
 export default function Task({
-  task, tasks, setTasks, onDeleted, onCompleted, onEdit
+  task, onDeleted, onCompleted, onEdit
 }) {
+  const [timerStatus, setTimerStatus] = useState(sessionStorage.getItem(`${task.id}_status`) ? sessionStorage.getItem(`${task.id}_status`) : false)
   const [date, setDate] = useState(() => {
     formatDistanceToNowStrict(task.date, { includeSeconds: true })
   })
-  const [timerState, setTimerState] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,21 +23,22 @@ export default function Task({
     return () => clearInterval(interval)
   }, [task.date])
 
-  const toggleTaskStatus = useCallback((func) => {
-    setTimerState(false)
-    func()
-  }, [])
-
   const taskContextValue = useMemo(
     () => ({
       task,
-      tasks,
-      setTasks,
-      timerState,
-      setTimerState
+      timerStatus,
+      setTimerStatus
     }),
-    [task, tasks, setTasks, timerState]
+    [task, timerStatus]
   )
+
+  const onDestroyTask = () => {
+    onDeleted()
+  }
+
+  const onCompleteTask = () => {
+    onCompleted()
+  }
 
   return (
     <TodoListContext.Provider value={taskContextValue}>
@@ -48,7 +47,7 @@ export default function Task({
           <input
             className="toggle"
             type="checkbox"
-            onClick={() => toggleTaskStatus(onCompleted)}
+            onClick={onCompleteTask}
             defaultChecked={task.checked}
           />
           <label>
@@ -57,7 +56,7 @@ export default function Task({
             <span className="description">{`created ${date} ago`}</span>
           </label>
           <button type="button" className="icon icon-edit" onClick={onEdit} />
-          <button type="button" className="icon icon-destroy" onClick={() => toggleTaskStatus(onDeleted)} />
+          <button type="button" className="icon icon-destroy" onClick={onDestroyTask} />
         </div>
         <EditTask />
       </li>
@@ -66,8 +65,6 @@ export default function Task({
 }
 
 Task.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setTasks: PropTypes.func.isRequired,
   onDeleted: PropTypes.func.isRequired,
   onCompleted: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,

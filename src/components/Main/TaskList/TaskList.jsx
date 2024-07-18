@@ -22,6 +22,7 @@ export default function TaskList() {
       const idx = tasks.findIndex((el) => el.id === id)
       const item = tasks[idx]
 
+      item.timerState = false
       if (item.checked !== true) {
         item.taskStatus = 'completed'
         item.checked = true

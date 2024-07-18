@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 
 import TaskList from './Main/TaskList/TaskList.jsx'
 import Footer from './Footer/Footer.jsx'
@@ -12,6 +12,8 @@ export default function App() {
   const [timers, setTimers] = useState({})
 
   const activeCount = useMemo(() => tasks.filter((el) => el.taskStatus === '').length, [tasks])
+
+  useEffect(() => () => sessionStorage.clear(), [])
 
   const contextValue = useMemo(
     () => ({
