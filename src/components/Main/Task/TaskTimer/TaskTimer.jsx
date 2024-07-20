@@ -42,25 +42,28 @@ export default function TaskTimer({ task }) {
   }, [status, remainingTime]) // eslint-disable-line
 
   const toggleTimer = useCallback((value) => {
-    if (value && remainingTime > 0) {
+    if (remainingTime > 0) {
       setItemInStorage(`${task.id}_status`, value)
-      setItemInStorage(`${task.id}_remainingTime`, remainingTime - getTime())
-      setItemInStorage(`${task.id}_saved`, getTime())
 
-      if (Number(getItemFromStorage(`${task.id}_remainingTime`)) <= 0) return
-      if (getItemFromStorage('startedTasks')) {
-        const startedTasks = getArrayFromStorage('startedTasks')
-        if (startedTasks.includes(task.id)) return
-        setArrayInStorage('startedTasks', [...startedTasks, task.id])
-      } else {
-        setArrayInStorage('startedTasks', [task.id])
+      if (value) {
+        setItemInStorage(`${task.id}_remainingTime`, remainingTime - getTime())
+        setItemInStorage(`${task.id}_saved`, getTime())
+
+        if (Number(getItemFromStorage(`${task.id}_remainingTime`)) <= 0) return
+        if (getItemFromStorage('startedTasks')) {
+          const startedTasks = getArrayFromStorage('startedTasks')
+          if (startedTasks.includes(task.id)) return
+          setArrayInStorage('startedTasks', [...startedTasks, task.id])
+        } else {
+          setArrayInStorage('startedTasks', [task.id])
+        }
       }
-    }
 
-    if (!value && remainingTime > 0) {
-      const startedTasks = getArrayFromStorage('startedTasks')
-      if (!startedTasks.includes(task.id)) return
-      setArrayInStorage('startedTasks', startedTasks.toSpliced(startedTasks.indexOf(task.id), 1))
+      if (!value && remainingTime > 0) {
+        const startedTasks = getArrayFromStorage('startedTasks')
+        if (!startedTasks.includes(task.id)) return
+        setArrayInStorage('startedTasks', startedTasks.toSpliced(startedTasks.indexOf(task.id), 1))
+      }
     }
   }, [getTime, remainingTime, task.id])
 
