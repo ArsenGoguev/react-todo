@@ -1,52 +1,32 @@
-import React, { useContext, useCallback } from 'react'
+import React, { useContext } from 'react'
 
 import './taskList.css'
 import Task from '../Task/Task.jsx'
 import { TodoAppContext } from '../../Context/TodoContext.js'
+import { removeItemsFromStorage } from '../../../service/SessionStorage.js'
 
 export default function TaskList() {
   const { tasks, setTasks, activeShowButton } = useContext(TodoAppContext)
 
-  const onDeleted = useCallback(
-    (id) => {
-      const idx = tasks.findIndex((el) => el.id === id)
-      const result = tasks.toSpliced(idx, 1)
+  const onDeleted = (id) => {
+    const removeTimeout = setTimeout(() => {
+      removeItemsFromStorage(id, ['status', 'remainingTime', 'saved'])
+      clearTimeout(removeTimeout)
+    }, 100)
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
+  }
 
-      setTasks(result)
-    },
-    [tasks, setTasks]
-  )
+  const onCompleted = (id) => {
+    setTasks((prevTasks) => prevTasks.map((task) => (task.id === id
+      ? { ...task, taskStatus: task.checked ? '' : 'completed', checked: !task.checked }
+      : task)))
+  }
 
-  const onCompleted = useCallback(
-    (id) => {
-      const idx = tasks.findIndex((el) => el.id === id)
-      const item = tasks[idx]
-
-      item.timerState = false
-      if (item.checked !== true) {
-        item.taskStatus = 'completed'
-        item.checked = true
-      } else {
-        item.taskStatus = ''
-        item.checked = false
-      }
-
-      setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
-    },
-    [tasks, setTasks]
-  )
-
-  const onEdit = useCallback(
-    (id) => {
-      const idx = tasks.findIndex((el) => el.id === id)
-      const item = tasks[idx]
-
-      item.taskStatus += ' editing'
-
-      setTasks([...tasks.slice(0, idx), item, ...tasks.slice(idx + 1)])
-    },
-    [tasks, setTasks]
-  )
+  const onEdit = (id) => {
+    setTasks((prevTasks) => prevTasks.map((task) => (task.id === id
+      ? { ...task, taskStatus: `${task.taskStatus} editing` }
+      : task)))
+  }
 
   const getComponent = (todo) => (
     <Task
@@ -63,12 +43,12 @@ export default function TaskList() {
 
   const filterTasks = () => {
     switch (activeShowButton) {
-    case 'Active':
-      return tasks.filter((el) => el.taskStatus === '').map((todo) => getComponent(todo))
-    case 'Completed':
-      return tasks.filter((el) => el.taskStatus === 'completed').map((todo) => getComponent(todo))
+    case 'active':
+      return tasks.filter((el) => el.taskStatus === '').map(getComponent)
+    case 'completed':
+      return tasks.filter((el) => el.taskStatus === 'completed').map(getComponent)
     default:
-      return tasks.map((todo) => getComponent(todo))
+      return tasks.map(getComponent)
     }
   }
 

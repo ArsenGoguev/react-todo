@@ -54,6 +54,8 @@ export default [
   {
     rules: {
       indent: ['error', 2],
+      'consistent-return': 0,
+      'max-len': 0,
       'comma-dangle': ['error', 'never'],
       'no-nested-ternary': 0,
       'no-console': 0,
@@ -69,6 +71,7 @@ export default [
       quotes: ['error', 'single'],
       semi: ['error', 'never'],
       'react/jsx-no-constructed-context-values': 0,
+      'react-hooks/exhaustive-deps': 0,
       '@react/react-in-jsx-scope': 'off',
       '@react/prop-types': 0,
       'react/forbid-prop-types': 0,

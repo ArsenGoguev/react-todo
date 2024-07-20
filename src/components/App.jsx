@@ -1,5 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react'
 
+import { clearStorage } from '../service/SessionStorage.js'
+
 import TaskList from './Main/TaskList/TaskList.jsx'
 import Footer from './Footer/Footer.jsx'
 import Header from './Header/Header.jsx'
@@ -13,7 +15,7 @@ export default function App() {
 
   const activeCount = useMemo(() => tasks.filter((el) => el.taskStatus === '').length, [tasks])
 
-  useEffect(() => () => sessionStorage.clear(), [])
+  useEffect(() => () => clearStorage(), [])
 
   const contextValue = useMemo(
     () => ({

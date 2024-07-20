@@ -1,14 +1,13 @@
 import React, {
   useContext, useState, useEffect, useRef, useCallback
 } from 'react'
+import PropTypes from 'prop-types'
 
 import './editTask.css'
-import { TodoAppContext, TodoListContext } from '../../../Context/TodoContext.js'
+import { TodoAppContext } from '../../../Context/TodoContext.js'
 
-export default function EditTask() {
+export default function EditTask({ task }) {
   const { tasks, setTasks } = useContext(TodoAppContext)
-  const { task } = useContext(TodoListContext)
-
   const [description, setDescription] = useState(task.description)
   const inputRef = useRef(null)
 
@@ -17,16 +16,14 @@ export default function EditTask() {
     setTasks([...tasks.slice(0, idx), updatedTask, ...tasks.slice(idx + 1)])
   }, [tasks, task.id, setTasks])
 
-  const onSubmitDescription = (event) => {
-    event.preventDefault()
+  const onSubmitDescription = (e) => {
+    e.preventDefault()
     const item = { ...task, description: description.length > 0 ? description : task.description }
     item.taskStatus = item.taskStatus.replace(' editing', '')
     updateTaskInList(item)
   }
 
-  const onChangeDescription = (event) => {
-    setDescription(event.target.value)
-  }
+  const onChangeDescription = (e) => setDescription(e.target.value)
 
   const onCanceled = (e) => {
     if (e.key === 'Escape') {
@@ -46,9 +43,7 @@ export default function EditTask() {
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [handleClickOutside])
 
   return (
@@ -63,4 +58,15 @@ export default function EditTask() {
       />
     </form>
   )
+}
+
+EditTask.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    taskStatus: PropTypes.string.isRequired,
+    date: PropTypes.instanceOf(Date).isRequired,
+    checked: PropTypes.bool.isRequired,
+    time: PropTypes.number.isRequired
+  }).isRequired
 }

@@ -1,5 +1,3 @@
 import { createContext } from 'react'
 
-// eslint-disable-next-line import/prefer-default-export
-export const TodoAppContext = createContext()
-export const TodoListContext = createContext()
+export const TodoAppContext = createContext() // eslint-disable-line
